@@ -1,0 +1,50 @@
+<!-- -->
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">Shopping App</h1>
+    <button mat-icon-button onclick="console.log('cart clicked')">
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Side Navigation Bar -->
+  <mat-sidenav-container class="example-sidenav-container ">
+    <mat-sidenav #sidenav>
+      <div *ngFor="let menu of menuItems" class="sidenavMenuItems">
+        <div>{{menu}}</div>
+      </div>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content" role="main">
+        <div *ngFor="let color of colors">
+          <div *ngIf="color == 'Red';then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <div [style.color]="color"> {{ color }} </div>
+          </ng-template>
+          <ng-template #elseBlock>{{color}}</ng-template>
+
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- Modal Popup for Login -->
+  <ol>
+    <li>
+      <mat-form-field>
+        <label>What's your name?</label>
+        <input matInput [(ngModel)]="name">
+      </mat-form-field>
+    </li>
+    <li>
+      <button mat-raised-button (click)="openDialog()">Pick one</button>
+    </li>
+    <li *ngIf="animal">
+      You chose: <i>{{animal}}</i>
+    </li>
+  </ol>
